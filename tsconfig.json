@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2015",        // Utiliser au moins ES2015
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "lib": ["es2015", "dom"]   // Inclure es2015 et dom
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

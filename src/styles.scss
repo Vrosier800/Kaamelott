@@ -1,0 +1,115 @@
+// Variables
+$primary-color: #3e3e3e;
+$secondary-color: #555;
+$background-color: #fff;
+$border-color: #ccc;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('../Kaamelott.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+header {
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: $primary-color;
+    color: #fff;
+    font-size: 16px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Animation de transition */
+    &:hover {
+        background-color: $secondary-color; /* Couleur de fond au survol */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre portée au survol */
+    }
+}
+
+.container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    max-width: 600px; /* Largeur maximale du conteneur */
+    width: 90%; /* Largeur par défaut du conteneur */
+}
+
+.quote {
+    margin-bottom: 20px;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid $border-color;
+    border-radius: 5px;
+    background-color: $background-color;
+    width: 100%; /* Utilise toute la largeur disponible */
+    max-width: 90%; /* Largeur maximale de la citation */
+}
+
+.choices {
+    display: flex;
+    flex-wrap: wrap; /* Permet aux choix de s'adapter sur plusieurs lignes */
+    justify-content: center; /* Centre les éléments sur l'axe principal (horizontal) */
+    gap: 10px; /* Espacement entre les boutons */
+}
+
+.choice {
+    flex: 1; /* Chaque choix occupe la même largeur */
+    margin-bottom: 10px;
+    background-color: $primary-color;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    text-align: center;
+}
+
+.score {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%; /* Utilise toute la largeur disponible */
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px; /* Réduit l'espacement intérieur du conteneur */
+    }
+
+    .quote {
+        font-size: 16px; /* Réduit la taille de la police pour les citations */
+    }
+
+    .choice {
+        width: 100%; /* Les choix occupent toute la largeur sur les petits écrans */
+    }
+}

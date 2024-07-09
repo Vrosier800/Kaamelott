@@ -1,0 +1,33 @@
+{
+  "name": "kaamelott",
+  "version": "1.0.0",
+  "description": "find quote's charactere",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-ts": "tsc -w",
+    "watch-sass": "sass --watch src/styles.scss:dist/styles.css",
+    "build-ts": "tsc",
+    "build-sass": "sass src/styles.scss dist/styles.css --style compressed",
+    "start": "npm run watch-ts & npm run watch-sass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vrosier800/Kaamelott.git"
+  },
+  "keywords": [
+    "Kaamelott",
+    "Quotes",
+    "Game"
+  ],
+  "author": "Vrosier800",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vrosier800/Kaamelott/issues"
+  },
+  "homepage": "https://github.com/Vrosier800/Kaamelott#readme",
+  "devDependencies": {
+    "sass": "^1.77.6",
+    "typescript": "^5.5.3"
+  }
+}
