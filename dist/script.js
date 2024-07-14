@@ -91,7 +91,7 @@ function handleChoiceClick(event) {
     setTimeout(() => {
         quoteElement.style.backgroundColor = '';
         updateQuoteAndChoices();
-    }, 2);
+    }, 3000);
 }
 function startGame() {
     console.log('Le jeu commence !');
