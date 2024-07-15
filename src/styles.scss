@@ -110,6 +110,10 @@ button {
     }
 
     .choice {
-        width: 100%; /* Les choix occupent toute la largeur sur les petits écrans */
+        flex: 1 1 calc(50% - 20px);    
+        max-width: calc(50% - 20px); /* Assure une taille égale des boutons */
+        height: 50px; /* Assure une hauteur égale pour tous les boutons */
+        margin: 5px; /* Espacement entre les boutons */
+        font-size: 0.8rem;
     }
 }

@@ -79,6 +79,16 @@ function updateQuoteAndChoices() {
 }
 function handleChoiceClick(event) {
     const clickedChoice = event.target;
+    // Définir les boutons corrects et incorrects
+    choicesElements.forEach(button => {
+        if (button.textContent === (currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.character)) {
+            button.style.backgroundColor = 'green';
+        }
+        else {
+            button.style.backgroundColor = 'red';
+        }
+    });
+    // Mettre à jour le score et l'affichage de la citation
     if (clickedChoice.textContent === (currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.character)) {
         score++;
         quoteElement.style.backgroundColor = 'green';
@@ -88,10 +98,14 @@ function handleChoiceClick(event) {
     }
     quoteElement.innerHTML = `<p><i>${currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.quote}</p></i><p><strong>${currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.character}</strong>, ${currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.episode}</p>`;
     scoreElement.textContent = `Votre score est de : ${score}/${usedQuotes.size}`;
+    // Réinitialiser les styles après 2,5 secondes
     setTimeout(() => {
+        choicesElements.forEach(button => {
+            button.style.backgroundColor = '';
+        });
         quoteElement.style.backgroundColor = '';
         updateQuoteAndChoices();
-    }, 3000);
+    }, 2500);
 }
 function startGame() {
     console.log('Le jeu commence !');
