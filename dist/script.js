@@ -133,6 +133,7 @@ function handleChoiceClick(event) {
     }, 2500);
 }
 function startGame() {
+    console.log(Quote.length);
     console.log('Le jeu commence !');
     usedQuotes.clear();
     score = 0;
