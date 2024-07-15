@@ -18,7 +18,7 @@ const arrayQuotes = [
     new Quote('Arthur', 'Perceval le Gallois en tout cas tout le monde s\'accorde à dire que c\'est une tanche et ça, c\'est pas une légende !', 'Livre I, Le chevalier mystère'),
     new Quote('Arthur', 'Bon... Déjà il me tutoie, ça part mal. Virez moi ce con.', 'Livre I, Les défis de Merlin'),
     new Quote('Arthur', 'Je suis chef de guerre moi. Je suis pas là pour secouer des drapeaux et jouer de la trompette', 'Livre I, Codes et Stratégies'),
-    new Quote('Arthur', 'Le prochain qui l\ouvre, je l\'envoie aux galères pendant trois async. Sans déconner je le fais.', 'Livre III, l\'Étudiant'),
+    new Quote('Arthur', 'Le prochain qui l\'ouvre, je l\'envoie aux galères pendant trois ans. Sans déconner je le fais.', 'Livre III, l\'Étudiant'),
     new Quote('Karadoc', 'Ca y est je vois trouble. C\'est le manque de gras je me dessèche !', 'Livre II, La restriction'),
     new Quote('Léodagan', 'Moi en général je réponds "merde". En principe, ça colle avec tout.', 'Livre IV, Tous les matins du monde'),
     new Quote('Perceval', 'Non "psychologique", c\'est tout ce qui est à la campagne non ?', 'Livre I, Unagi'),
