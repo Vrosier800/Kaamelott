@@ -79,10 +79,10 @@ button {
     flex-wrap: wrap; /* Permet aux choix de s'adapter sur plusieurs lignes */
     justify-content: center; /* Centre les éléments sur l'axe principal (horizontal) */
     gap: 10px; /* Espacement entre les boutons */
+    
 }
 
 .choice {
-    flex: 1; /* Chaque choix occupe la même largeur */
     margin-bottom: 10px;
     background-color: $primary-color;
     color: #fff;
@@ -91,6 +91,9 @@ button {
     border: none;
     padding: 10px;
     text-align: center;
+    flex: 1 1 calc(50% - 40px);    
+    max-width: calc(50% - 20px); /* Assure une taille égale des boutons */
+    height: 50px; /* Assure une hauteur égale pour tous les boutons */
 }
 
 .score {

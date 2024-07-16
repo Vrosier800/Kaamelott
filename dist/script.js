@@ -32,10 +32,10 @@ const arrayQuotes = [
     new Quote('Dame Séli', 'Y\'en a marre de se comporter comme des sagouins avec tout le monde sous prétexte qu\'on a des responsabilités !', 'Livre I, La tarte aux myrtilles'),
     new Quote('Dame Séli', 'Si les dieux avaient du être de notre côté, ils nous auraient pas refilé des enfants comme vous déjà !', 'Livre V, La roche et le Fer'),
     new Quote('Dame Séli', 'Oh non mais c\'est dingue cette histoire ! Mais s\'il a pas envie d\'aller aux pendaisons il fait ce qu\'il veut, mais qu\'il empêche pas les autres de s\'amuser !', 'Livre I, Létal'),
-    new Quote('Merlin', 'Rendez-vous compte de la magnificence de ces colonnades ! L\'imposant ne le disputet-t-il pas à la majesté ?', 'Livre VI, Præceptores'),
+    new Quote('Merlin', 'Rendez-vous compte de la magnificence de ces colonnades ! L\'imposant ne le dispute-t-il pas à la majesté ?', 'Livre VI, Præceptores'),
     new Quote('Merlin', 'Faut vraiment que je mette de l\'ordre dans ce merdier. C\'est pas compliqué, on dirait ma piaule !', 'Livre III, La potion de vivacité'),
     new Quote('Le Maître d\'Armes', 'En garde ma biquette ! Je vais vous découper le gras du cul, ça vous fera ça de moins à trimballer !', 'Livre II, Excalibur et le Destin'),
-    new Quote('Le Maître d\Armes', 'Sire ! Mon père est peut-être unijambiste, mais moi, ma femme a pas de moustaches !', 'Livre I, Le Maître d\Armes'),
+    new Quote('Le Maître d\'Armes', 'Sire ! Mon père est peut-être unijambiste, mais moi, ma femme a pas de moustaches !', 'Livre I, Le Maître d\'Armes'),
     new Quote('Venec', 'Des bandits ?! Non...! Des gars futés !', 'Livre II, Les Tuteurs'),
     new Quote('Kadoc', 'Faut pas respirer de la compote, ça fait tousser.', 'Livre V, Le Destitué'),
     new Quote('Kadoc', 'Pour savoir si il va y avoir du vent, faut mettre son doigt dans le cul du coq.', 'Livre II, O\'Brother'),
@@ -43,8 +43,8 @@ const arrayQuotes = [
     new Quote('Verinus', 'Pourquoi aux geôles ? Pourquoi aux geôles ?? Je suis en train de coopérer comme une petite salope !', "Livre VI, Præceptores"),
     new Quote('Gauvain', 'Seigneur Bohort, pouvons-nous nous retirer afin d\'aller prendre notre goûter ?', 'Livre II, Les Tuteurs'),
     new Quote('Goustant', 'Non, les enfants il faut les détester ! C\'est comme ça qu\'ils deviennent hargneux.', 'Livre I, Goustant le Cruel'),
-    new Quote('Goustant', 'Non seukement je vais rester. Mais croyez-moi que je vais tâcher de crever le plus tard possible ! Peut-être même après vous deux !', 'Livre VI, Nuptiæ'),
-    new Quote('César', 'On ne devient pas chef parce qu\on le mérite andouille ! On devient chef par un concours de circonstances, on le mérite après !', 'Livre VI, Dux bellorum'),
+    new Quote('Goustant', 'Non seulement je vais rester. Mais croyez-moi que je vais tâcher de crever le plus tard possible ! Peut-être même après vous deux !', 'Livre VI, Nuptiæ'),
+    new Quote('César', 'On ne devient pas chef parce qu\'on le mérite andouille ! On devient chef par un concours de circonstances, on le mérite après !', 'Livre VI, Dux bellorum'),
     new Quote('La Dame du Lac', 'Ça vous ennuie si je pleure un tout petit peu ?', 'Livre IV, La Clandestine'),
     new Quote('Méléagant', 'Vous étiez perdant le jour-même de votre naissance. Voué aux offices secondaires, aux ambitions raisonnables.', 'Livre V, Jizô'),
     new Quote('Dame Cryda', 'Dit donc c\'est magique hein, le mariage. En trente secondes, on passe de fille de fermer à reine de Bretagne.', 'Livre III, Cryda de Tintagel'),
@@ -73,6 +73,11 @@ const choicesElements = document.querySelectorAll('.choice');
 const scoreElement = document.querySelector('.score');
 const startGameBtn = document.getElementById('startGameBtn');
 const rules = document.querySelector('.rules');
+function getRandomCharacters(characters, exclude, count) {
+    const filteredCharacters = characters.filter(character => character !== exclude);
+    const shuffledCharacters = shuffleArray(filteredCharacters);
+    return shuffledCharacters.slice(0, count);
+}
 function updateQuoteAndChoices() {
     if (usedQuotes.size === totalQuestions) {
         let message = '';
@@ -87,15 +92,14 @@ function updateQuoteAndChoices() {
         }
         message += `<button id="startGameBtn">Recommencer</button>`;
         containerElement.innerHTML = message;
-        // Réinitialisation pour recommencer le jeu
         startGameBtn.addEventListener('click', startGame);
         return;
     }
     currentQuote = getRandomQuote(usedQuotes);
     quoteElement.innerHTML = `<p><i>${currentQuote.quote}</i></p>`;
     const characters = [...new Set(arrayQuotes.map(quote => quote.character))];
-    characters.splice(characters.indexOf(currentQuote.character), 1);
-    const shuffledChoices = shuffleArray([...characters.slice(0, 3), currentQuote.character]);
+    const randomCharacters = getRandomCharacters(characters, currentQuote.character, 3);
+    const shuffledChoices = shuffleArray([...randomCharacters, currentQuote.character]);
     choicesElements.forEach((choice, index) => {
         choice.textContent = shuffledChoices[index];
         choice.onclick = null;
@@ -104,7 +108,6 @@ function updateQuoteAndChoices() {
 }
 function handleChoiceClick(event) {
     const clickedChoice = event.target;
-    // Définir les boutons corrects et incorrects
     choicesElements.forEach(button => {
         if (button.textContent === (currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.character)) {
             button.style.backgroundColor = 'green';
@@ -113,7 +116,6 @@ function handleChoiceClick(event) {
             button.style.backgroundColor = 'red';
         }
     });
-    // Mettre à jour le score et l'affichage de la citation
     if (clickedChoice.textContent === (currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.character)) {
         score++;
         quoteElement.style.backgroundColor = 'green';
@@ -121,9 +123,8 @@ function handleChoiceClick(event) {
     else {
         quoteElement.style.backgroundColor = 'red';
     }
-    quoteElement.innerHTML = `<p><i>${currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.quote}</p></i><p><strong>${currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.character}</strong>, ${currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.episode}</p>`;
+    quoteElement.innerHTML = `<p><i>${currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.quote}</i></p><p><strong>${currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.character}</strong>, ${currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.episode}</p>`;
     scoreElement.textContent = `Votre score est de : ${score}/${usedQuotes.size}`;
-    // Réinitialiser les styles après 2,5 secondes
     setTimeout(() => {
         choicesElements.forEach(button => {
             button.style.backgroundColor = '';
@@ -133,7 +134,6 @@ function handleChoiceClick(event) {
     }, 2500);
 }
 function startGame() {
-    console.log(Quote.length);
     console.log('Le jeu commence !');
     usedQuotes.clear();
     score = 0;
