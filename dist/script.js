@@ -49,9 +49,22 @@ const arrayQuotes = [
     new Quote('Méléagant', 'Vous étiez perdant le jour-même de votre naissance. Voué aux offices secondaires, aux ambitions raisonnables.', 'Livre V, Jizô'),
     new Quote('Dame Cryda', 'Dit donc c\'est magique hein, le mariage. En trente secondes, on passe de fille de fermer à reine de Bretagne.', 'Livre III, Cryda de Tintagel'),
     new Quote('Dame Cryda', 'D\'ailleurs, on se faisait une réflexion amusante : c\'est vrai, autour de votre table ronde, y\'a pratiquement que des connards !', 'Livre IV, L\'Approbation'),
-    new Quote('Lancelot', 'Non et puis si votre but c\'était de séduire les dames, fallait faire chevalier c\'est tout !', 'Livre I, L\imposteur'),
+    new Quote('Lancelot', 'Non et puis si votre but c\'était de séduire les dames, fallait faire chevalier c\'est tout !', 'Livre I, L\'imposteur'),
     new Quote('Lancelot', 'Pour tout vous dire, je crois pas que ce soit bon pour mon autorité que mes soldats apprennent que je suis une grosse pucelle !', 'Livre IV, Les Novices')
 ];
+// Variables de jeu
+let usedQuotes = new Set();
+let score = 0;
+let totalQuestions = 10;
+let currentQuote = null;
+// Sélection des éléments DOM
+const containerElement = document.querySelector('.container');
+const quoteElement = document.querySelector('.quote');
+const choicesElements = document.querySelectorAll('.choice');
+const scoreElement = document.querySelector('.score');
+const startGameBtn = document.getElementById('startGameBtn');
+const rules = document.querySelector('.rules');
+// Fonctions utilitaires
 function getRandomQuote(usedQuotes) {
     let randomIndex = Math.floor(Math.random() * arrayQuotes.length);
     while (usedQuotes.has(randomIndex)) {
@@ -63,36 +76,15 @@ function getRandomQuote(usedQuotes) {
 function shuffleArray(array) {
     return array.sort(() => Math.random() - 0.5);
 }
-let usedQuotes = new Set();
-let score = 0;
-let totalQuestions = 10;
-let currentQuote = null;
-const containerElement = document.querySelector('.container');
-const quoteElement = document.querySelector('.quote');
-const choicesElements = document.querySelectorAll('.choice');
-const scoreElement = document.querySelector('.score');
-const startGameBtn = document.getElementById('startGameBtn');
-const rules = document.querySelector('.rules');
 function getRandomCharacters(characters, exclude, count) {
     const filteredCharacters = characters.filter(character => character !== exclude);
     const shuffledCharacters = shuffleArray(filteredCharacters);
     return shuffledCharacters.slice(0, count);
 }
+// Fonctions de logique de jeu
 function updateQuoteAndChoices() {
     if (usedQuotes.size === totalQuestions) {
-        let message = '';
-        if (score < 5) {
-            message = `<p>Fin du jeu. Votre score : ${score}/${totalQuestions}</p> <p>Il va falloir revoir toute la série !</p>`;
-        }
-        else if (score < 8) {
-            message = `<p>Fin du jeu. Votre score : ${score}/${totalQuestions}</p> <p>Tu peux mieux faire, retourne regarder Kaamelott !</p>`;
-        }
-        else {
-            message = `<p>Fin du jeu. Votre score : ${score}/${totalQuestions}</p> <p>Parfait ! Tu es un pro de Kaamelott</p>`;
-        }
-        message += `<button id="startGameBtn">Recommencer</button>`;
-        containerElement.innerHTML = message;
-        startGameBtn.addEventListener('click', startGame);
+        endGame();
         return;
     }
     currentQuote = getRandomQuote(usedQuotes);
@@ -105,9 +97,11 @@ function updateQuoteAndChoices() {
         choice.onclick = null;
         choice.addEventListener('click', handleChoiceClick);
     });
+    enableChoiceButtons();
 }
 function handleChoiceClick(event) {
     const clickedChoice = event.target;
+    disableChoiceButtons();
     choicesElements.forEach(button => {
         if (button.textContent === (currentQuote === null || currentQuote === void 0 ? void 0 : currentQuote.character)) {
             button.style.backgroundColor = 'green';
@@ -133,6 +127,45 @@ function handleChoiceClick(event) {
         updateQuoteAndChoices();
     }, 2500);
 }
+function disableChoiceButtons() {
+    choicesElements.forEach(button => {
+        button.disabled = true;
+    });
+}
+function enableChoiceButtons() {
+    choicesElements.forEach(button => {
+        button.disabled = false;
+    });
+}
+function endGame() {
+    let message = '';
+    if (score < 5) {
+        message = `<p>Fin du jeu. Votre score : ${score}/${totalQuestions}</p> <p>Il va falloir revoir toute la série !</p>`;
+    }
+    else if (score < 8) {
+        message = `<p>Fin du jeu. Votre score : ${score}/${totalQuestions}</p> <p>Tu peux mieux faire, retourne regarder Kaamelott !</p>`;
+    }
+    else {
+        message = `<p>Fin du jeu. Votre score : ${score}/${totalQuestions}</p> <p>Parfait ! Tu es un pro de Kaamelott</p>`;
+    }
+    // Injecter le message de fin du jeu dans containerElement
+    containerElement.innerHTML = message;
+    // Appeler la fonction pour afficher le bouton "Retour à l'accueil"
+    returnHome();
+}
+function returnHome() {
+    // Création du bouton "Retour à l'accueil"
+    const btnHome = `<button id="returnHomeBtn">Retour à l'accueil</button>`;
+    // Ajout du bouton à containerElement sans écraser le contenu existant
+    containerElement.insertAdjacentHTML('beforeend', btnHome);
+    // Écouteur d'événement sur le bouton "Retour à l'accueil"
+    const returnHomeBtn = document.getElementById('returnHomeBtn');
+    returnHomeBtn.addEventListener('click', redirectToHome);
+}
+function redirectToHome() {
+    // Redirection vers la page d'accueil
+    window.location.href = "https://kaamelott-citations-jeux.netlify.app/";
+}
 function startGame() {
     console.log('Le jeu commence !');
     usedQuotes.clear();
@@ -143,6 +176,7 @@ function startGame() {
     containerElement.style.display = 'flex';
     updateQuoteAndChoices();
 }
+// Initialisation et lancement du jeu
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Le document est complètement chargé.');
     startGameBtn.addEventListener('click', startGame);
