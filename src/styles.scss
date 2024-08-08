@@ -103,6 +103,28 @@ button {
     width: 100%; /* Utilise toute la largeur disponible */
 }
 
+.footer {
+    background-color: rgb(245, 237, 231);
+    color: black;
+    text-align: center;
+    padding: 10px; /* Réduit la hauteur du footer */
+    width: 100%;
+    position: absolute; /* Positionnement absolu pour coller en bas */
+    bottom: 0; /* Colle le footer en bas de la page */
+    left: 0;
+  
+    .footer-bottom {
+        padding-top: 2px; /* Réduit le padding */
+        font-size: 0.8rem; /* Réduit la taille de la police */
+        color: #bbb;
+  
+        .monNom {
+            font-weight: bold;
+            color: $secondary-color;
+        }
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 10px; /* Réduit l'espacement intérieur du conteneur */
@@ -121,4 +143,18 @@ button {
         margin: 5px; /* Espacement entre les boutons */
         font-size: 0.8rem;
     }
+
+    .footer-content {
+        .footer-section {
+          margin: 10px 0;
+          p {
+            font-size: 0.9rem;
+          }
+        }
+      }
+    
+      .footer-bottom {
+        font-size: 0.8rem;
+      }
 }
+
